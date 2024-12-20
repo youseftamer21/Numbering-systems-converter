@@ -1,0 +1,430 @@
+#first, the decimal functions
+def decitobinary(decimal_number):#decimal to binary function
+ 
+  outcome = "" #identifying an outcome variable
+
+  while decimal_number >= 1:#starting a while loop until the number reaches 1 
+   
+    if decimal_number % 2 == 0: #if it's divisible by 2 then it gives 0 otherwise 1
+        outcome+="0"
+   
+    else:
+        outcome+="1"
+
+    decimal_number = decimal_number // 2# divide by 2 for the next cycle in the loop
+
+ 
+
+  outcome=outcome[::-1] #reverse the string to get the correct order of binary digits  
+
+  return outcome
+
+ 
+#2nd function(decimal)
+
+def decitohexa(decimal_number):#decimal to hexadecimal function
+    
+    outcome = ""
+    characters = "0123456789ABCDEF"#specify the characters that are going to be representing the number
+
+    while decimal_number >= 16:#start a while loop until it reaches 16
+        remainder = decimal_number % 16 #modulus does the equation we need, which is the decimal remainder multiplied by denominator which is 16(e.g. 0.125*16)
+        outcome = characters[remainder] + outcome   #this command adds one of the characters for each remainder it receives
+        decimal_number //= 16 #divide by 16 for the next cycle
+
+    outcome = characters[decimal_number] + outcome #we add this if the number is less than 16
+    return outcome
+
+#3rd function(decimal)
+def decitoocta(decimalnumbero):#decimal to octal function
+ 
+  outcome = ""
+  characters = "01234567"#characters for error proofing
+
+  while decimalnumbero >= 8:#same as hexa function, while loop until 8
+    remainder = decimalnumbero % 8#modulus command same as hexa
+    outcome = characters[remainder] + outcome
+    decimalnumbero //= 8
+
+
+  outcome = characters[decimalnumbero] + outcome
+  return outcome
+
+#4th function(binary) all binary functions reverse the number in order to get the correct reading from right to left, and in order to do that, input needs to be string
+def binarytodeci(binarynumber):
+    
+ binarynumber=binarynumber[::-1]        #reverse the string order so that the i in the for loop matches the actual order from right to left instead of left to right
+ outcome=0
+
+ binarylength=len(binarynumber) #we get the length of number so that we specify the number of loops we need to do for each digit
+
+ for i in range(binarylength): #the i here is very important as it signifies both the digit in a certain position and the exponent applied to the 2
+
+    outcome+=(int(binarynumber[i]))*(2**i)  #we add to the outcome each loop the value of the digit in the i position times 2 to the power of i, (we mark the variable as int so that it can do arithmetic)
+ return outcome
+
+#5th function(binary)
+def binarytohexa(x):
+ def binarytodeci(binarynumber):# we reuse the binary to decimal code to convert to decimal then to hexadecimal
+    binarynumber = binarynumber[::-1]
+    result = 0
+
+    binary_length = len(binarynumber)
+
+    for i in range(binary_length):
+        result += int(binarynumber[i]) * (2 ** i)
+
+    return result #we use return to get the value of the function so we can use the decimal value the function came up with
+
+ result = binarytodeci(x)
+
+ def decitohexa(decimal_number): # we reuse the decimal to hexadecimal code inside the binarytohexa function
+    outcome2 = ""
+    characters = "0123456789ABCDEF"
+
+    while decimal_number >= 16:
+        remainder = decimal_number % 16
+        outcome2 = characters[remainder] + outcome2
+        decimal_number //= 16
+
+    outcome2 = characters[decimal_number] + outcome2
+    return outcome2
+
+ hexaresult = decitohexa(result)
+ return hexaresult
+
+#6th function (binary)
+def binarytoocta(x):
+ def binarytodeci(binarynumber):#again we reuse the binary to decimal function and then reuse the decimal to octal function
+    binarynumber = binarynumber[::-1]
+    result = 0
+
+    binary_length = len(binarynumber)
+
+    for i in range(binary_length):
+        result += int(binarynumber[i]) * (2 ** i)
+
+    return result
+
+ result= binarytodeci(x)
+
+ def decitoocta(decimalnumbero):
+  outcome3 = ""
+  characters = "01234567"
+
+  while decimalnumbero >= 8:
+    remainder = decimalnumbero % 8
+    outcome3 = characters[remainder] + outcome3
+    decimalnumbero //= 8
+
+
+  outcome3 = characters[decimalnumbero] + outcome3
+  return outcome3 
+ octaresult= decitoocta(result)
+ return octaresult
+
+#7th function(octal)
+def octatodeci(octanumber):
+    #input is a string so we can reverse the string order
+ octanumber=octanumber[::-1]        #reverse the string order so that the i in the for loop matches the actual order from right to left instead of left to right
+ result=0
+
+ octalength=len(octanumber) #we get the length of number so that we specify the number of loops we need to do for each digit
+
+ for i in range(octalength): #the i here is very important as it signifies both the digit in a certain position and the exponent applied to the 8
+
+    result+=(int(octanumber[i]))*(8**i)  #we add to the result each loop the value of the digit in the i position times 8 to the power of i, (we mark the variable as int so that it can do arithmetic)
+
+ return result
+ 
+#8th function(octal)
+def octatobinary(x):
+ 
+ def octatodeci(octanumber):# we reuse the octal to deci function so we can convert from deci to binary
+    
+  octanumber=octanumber[::-1]        
+  result=0
+
+  octalength=len(octanumber)
+
+  for i in range(octalength): 
+
+    result+=(int(octanumber[i]))*(8**i)  
+  return result#we use the return function so that we can get the value of octatodeci
+
+ octatodeci_r=octatodeci(x)#octatodeci_r serves as the decimal value we get from the octatodeci command when we input (x)
+
+ def decitobinary(decimal_number):# we reuse the decimal to binary function
+ 
+  outcome = ""
+
+  while decimal_number >= 1:
+    if decimal_number % 2 == 0:
+        outcome+="0"
+    else:
+        outcome+="1"
+    decimal_number = decimal_number // 2
+
+# Reverse the list to get the correct order of binary digits
+
+  outcome=outcome[::-1]
+  return outcome#we return the outcome so that decitobinary() has the value we need
+ outcome=decitobinary(octatodeci_r)# we use the octatodeci_r variable as the input into decitobinary, as octatodeci_r is the decimal value
+ return outcome #we return the outcome so that we can print the outcome in the end from the function
+
+#9th function(octal)
+def octatohexa(x):
+ def octatodeci(octanumber):#we reuse the octatodeci again, with the same process as octal to binary
+    
+  octanumber=octanumber[::-1]        
+  result=0
+
+  octalength=len(octanumber) 
+
+  for i in range(octalength): 
+    result+=(int(octanumber[i]))*(8**i)  
+  return result
+
+ octatodeci_r=octatodeci(x)
+
+ def decitohexa(decimalnumberh):
+  outcome2 = ""
+  characters = "0123456789ABCDEF"
+
+  while decimalnumberh >= 16:
+    remainder = decimalnumberh % 16
+    outcome2 = characters[remainder] + outcome2
+    decimalnumberh //= 16
+
+
+  outcome2 = characters[decimalnumberh] + outcome2
+ 
+  return outcome2
+
+ hexaoutcome=decitohexa(octatodeci_r)# same process as before
+ return hexaoutcome
+
+#10th function(hexa)
+def hexatodeci(hexanumber):
+    #input is a string so we can reverse the string order
+ hexanumber=hexanumber.upper() [::-1]        #reverse the string order so that the i in the for loop matches the actual order from right to left instead of left to right, and capitalise for consistency
+ 
+ result=0
+
+ hexalength=len(hexanumber) #we get the length of number so that we specify the number of loops we need to do for each digit
+
+ for i in range(hexalength): #the i here is very important as it signifies both the digit in a certain position and the exponent applied to the 2
+    
+    specificnumber=hexanumber[i]#we create the variable specificnumber so that we can make conditions for hexanumber[i] when it encounters a letter
+    
+    if specificnumber=="A":#we give each letters its value and add it to the result
+      specificnumber=10
+    elif specificnumber=="B":
+      specificnumber=11
+    elif specificnumber=="C":
+      specificnumber=12
+    elif specificnumber=="D":
+      specificnumber=13
+    elif specificnumber=="E":
+     specificnumber=14
+    elif specificnumber=="F":
+      specificnumber=15
+
+
+    result+=(int(specificnumber))*(16**i)  #we add to the result each loop the value of the digit in the i position times 16 to the power of i, (we mark the variable as int so that it can do arithmetic)
+
+ return result
+
+#11th function(hexa)
+def hexatobinary(x):
+ 
+
+ def hexatodeci(hexanumber):#as we've done with octal and binary, we will once again reuse the decimal conversion as a buffer between functions
+ 
+  hexanumber=hexanumber.upper() [::-1]        
+  result=0
+
+  hexalength=len(hexanumber)
+  for i in range(hexalength): 
+    specificnumber=hexanumber[i]
+    if specificnumber=="A":
+      specificnumber=10
+    elif specificnumber=="B":
+      specificnumber=11
+    elif specificnumber=="C":
+      specificnumber=12
+    elif specificnumber=="D":
+      specificnumber=13
+    elif specificnumber=="E":
+     specificnumber=14
+    elif specificnumber=="F":
+      specificnumber=15
+
+
+    result+=(int(specificnumber))*(16**i)  
+  return result
+
+ hexatodeci_r=hexatodeci(x)#same process as before
+ 
+ 
+ 
+ 
+ 
+ def decitobinary(decimal_number):
+  
+  outcome = ""
+
+  while decimal_number >= 1:
+    if decimal_number % 2 == 0:
+        outcome+="0"
+    else:
+        outcome+="1"
+    decimal_number = decimal_number // 2
+
+ # Reverse the list to get the correct order of binary digits
+
+  outcome=outcome[::-1]
+  return outcome
+ printedoutcome=decitobinary(hexatodeci_r)
+ return printedoutcome
+
+#12th function(hexa)
+def hexatoocta(x):
+ 
+
+ def hexatodeci(hexanumber):#same process as before
+ 
+  hexanumber=hexanumber.upper() [::-1]        
+ 
+  result=0
+
+  hexalength=len(hexanumber) 
+
+  for i in range(hexalength): 
+    specificnumber=hexanumber[i]
+    if specificnumber=="A":
+      specificnumber=10
+    elif specificnumber=="B":
+      specificnumber=11
+    elif specificnumber=="C":
+      specificnumber=12
+    elif specificnumber=="D":
+      specificnumber=13
+    elif specificnumber=="E":
+     specificnumber=14
+    elif specificnumber=="F":
+      specificnumber=15
+
+
+    result+=(int(specificnumber))*(16**i)  
+  return result
+
+ hexatodeci_r=hexatodeci(x)
+
+ def decitoocta(decimalnumbero):
+  outcome3 = ""
+  characters = "01234567"
+
+  while decimalnumbero >= 8:
+    remainder = decimalnumbero % 8
+    outcome3 = characters[remainder] + outcome3
+    decimalnumbero //= 8
+
+
+  outcome3 = characters[decimalnumbero] + outcome3
+  return outcome3
+
+ octaloutcome=decitoocta(hexatodeci_r)
+ return octaloutcome
+
+
+
+
+
+
+
+infinite=1 #infinite loop so that the program doesnt stop unless the user stops it himself
+while infinite==1:
+
+
+
+
+
+
+ choice=str(input('A) insert a new number B) Exit program'))# choose either to start the program or to exit
+
+ if choice.upper() =='A' :#start the program, from now on everything has .upper() after so that lowercase letters are accepted as well
+    
+    basefrom=str(input("** Please select the base you want to convert a number from**A) Decimal B) Binary C) octal D) hexadecimal"))#the base to change from##INPUT###
+    if basefrom.upper()== 'A':#from decimal
+        print('You want to change from decimal')
+        number=int(input("Enter the number"))# the number that needs to be changed ### INPUT ### NUMBER ###
+        baseto=str(input("** Please select the base you want to convert a number to**A) Decimal B) Binary C) octal D) hexadecimal"))# user wants to change from decimal to sth.
+        if baseto.upper() == "A":#dec. to dec.
+            print(number)
+        elif baseto.upper() == "B":#dec. to binary
+            print(decitobinary(number))
+        elif baseto.upper() == "C":#dec to octal
+            print(decitoocta(number))
+        elif baseto.upper() == "D":#dec to hexa dec.
+            print(decitohexa(number))
+        else:
+            print("please select a valid choice")
+    elif basefrom.upper()== 'B':#from binary
+        print('You want to change from binary')
+        number=str(input("Enter the number"))# number is string so that it can be reversed in the function
+        baseto=str(input("** Please select the base you want to convert a number to**A) Decimal B) Binary C) octal D) hexadecimal"))# user wants to change from binary to sth.
+        if baseto.upper() == 'B':#binary to binary
+            print(number)
+        elif baseto.upper() == 'A':#binary. to decimal
+            print(binarytodeci(number))
+        
+        elif baseto.upper() == 'C':#binary to octal
+            print(binarytoocta(number))
+            
+        elif baseto.upper() == 'D':#binary to hexa dec.
+            print(binarytohexa(number))
+            
+        else:
+            print("please select a valid choice")
+    elif basefrom.upper()== 'C':#from octal
+        print('You want change from octal')
+        number=str(input("Enter the number"))# number is string so that it can be reversed in the function
+        baseto=str(input("** Please select the base you want to convert a number to**A) Decimal B) Binary C) octal D) hexadecimal"))# user wants to change from octal to sth.
+        if baseto.upper() == 'C':#octal to octal
+            print(number)
+        elif baseto.upper() == 'B':#octal. to binary
+            print(octatobinary(number))
+            
+        elif baseto.upper() == 'A':#octal to dec.
+            print(octatodeci(number))
+            
+        elif baseto.upper() == 'D':#octal to hexa dec.
+            print(octatohexa(number))
+            
+        else:
+            print("Please select a valid choice")
+    elif basefrom.upper()== 'D':#from hexadecimal
+        print('You want to change from hexadecimal')
+        number=str(input("Enter the number"))# number is string so that it can be reversed in the function
+        baseto=str(input("** Please select the base you want to convert a number to**A) Decimal B) Binary C) octal D) hexadecimal"))# user wants to change from hexa to sth.
+        if baseto.upper() == 'D':#hexa dec. to hexa dec.
+            print(number.upper())
+        elif baseto.upper() == 'B':#hexa dec. to binary
+            print(hexatobinary(number.upper()))
+            
+        elif baseto.upper() == 'C':#hexa dec to octal
+            print(hexatoocta(number.upper()))
+            
+        elif baseto.upper() == 'A':#hexa dec to dec.
+            print(hexatodeci(number.upper()))
+            
+        else:
+            print("Please select a valid choice")
+    else:
+        print("Please select a valid choice")
+ elif choice.upper() =='B':# EXIT
+    print('Thank you for using our program')
+    break
+ else:
+    print("Please select a valid choice")
